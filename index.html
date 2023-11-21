@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Manipulation</title>
+</head>
+<body>
+    <h1>Text Manipulation</h1>
+    
+    <label for="textInput">Enter your text:</label>
+    <textarea id="textInput" rows="4" cols="50"></textarea>
+    
+    <br>
+    
+    <button onclick="removeText()">Remove Text</button>
+    
+    <br>
+    
+    <label for="output">Result:</label>
+    <textarea id="output" rows="4" cols="50" readonly></textarea>
+
+    <script>
+        function removeText() {
+            const inputText = document.getElementById("textInput").value;
+            const removedText = inputText.replace(/\[oai_citation:[^\)]+\)/g, '');
+            document.getElementById("output").value = removedText;
+        }
+    </script>
+</body>
+</html>
