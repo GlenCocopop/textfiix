@@ -11,7 +11,17 @@
     
     <br>
     
-    <button onclick="removeText()">Remove Text</button>
+    <label for="removeStarsCheckbox">Remove '**'</label>
+    <input type="checkbox" id="removeStarsCheckbox">
+    
+    <br>
+    
+    <label for="removeLineBreaksCheckbox">Remove Line Breaks inside Paragraphs</label>
+    <input type="checkbox" id="removeLineBreaksCheckbox">
+    
+    <br>
+    
+    <button onclick="manipulateText()">Manipulate Text</button>
     
     <br>
     
@@ -19,10 +29,24 @@
     <textarea id="output" rows="4" cols="50" readonly></textarea>
 
     <script>
-        function removeText() {
+        function manipulateText() {
             const inputText = document.getElementById("textInput").value;
-            const removedText = inputText.replace(/\[oai_citation:[^\)]+\)/g, '');
-            document.getElementById("output").value = removedText;
+            let manipulatedText = inputText;
+
+            // Remove '**'
+            if (document.getElementById("removeStarsCheckbox").checked) {
+                manipulatedText = manipulatedText.replace(/\*\*/g, '');
+            }
+
+            // Remove line breaks inside paragraphs
+            if (document.getElementById("removeLineBreaksCheckbox").checked) {
+                manipulatedText = manipulatedText.replace(/([^.\n])\n(?!\n)/g, '$1 ');
+            }
+
+            // Handle ']:'
+            manipulatedText = manipulatedText.replace(/\]:/g, ']\n');
+
+            document.getElementById("output").value = manipulatedText;
         }
     </script>
 </body>
